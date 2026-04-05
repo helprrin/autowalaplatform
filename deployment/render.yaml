@@ -1,0 +1,12 @@
+# Render Deployment Configuration
+# Place this in your backend directory
+
+# Build command
+build:
+  - composer install --no-dev --optimize-autoloader
+
+# Start command
+start: php artisan config:cache && php artisan route:cache && php artisan serve --host=0.0.0.0 --port=$PORT
+
+# Release command (runs on deploy)
+release: php artisan migrate --force

@@ -1,0 +1,55 @@
+{
+  "rules": {
+    "riders": {
+      "$riderId": {
+        ".read": true,
+        ".write": "auth != null && auth.uid == $riderId",
+        "location": {
+          "latitude": { ".validate": "newData.isNumber()" },
+          "longitude": { ".validate": "newData.isNumber()" },
+          "heading": { ".validate": "newData.isNumber()" },
+          "speed": { ".validate": "newData.isNumber()" },
+          "accuracy": { ".validate": "newData.isNumber()" },
+          "timestamp": { ".validate": "newData.isNumber()" }
+        },
+        "status": {
+          "isOnline": { ".validate": "newData.isBoolean()" },
+          "isAvailable": { ".validate": "newData.isBoolean()" },
+          "lastSeen": { ".validate": "newData.isNumber()" }
+        },
+        "profile": {
+          "name": { ".validate": "newData.isString()" },
+          "phone": { ".validate": "newData.isString()" },
+          "vehicleNumber": { ".validate": "newData.isString()" },
+          "rating": { ".validate": "newData.isNumber()" }
+        },
+        "currentRoute": {
+          "routeId": { ".validate": "newData.isString()" },
+          "routeName": { ".validate": "newData.isString()" },
+          "fare": { ".validate": "newData.isNumber()" }
+        }
+      }
+    },
+    "activeSessions": {
+      "$sessionId": {
+        ".read": true,
+        ".write": "auth != null",
+        "riderId": { ".validate": "newData.isString()" },
+        "userId": { ".validate": "newData.isString()" },
+        "startedAt": { ".validate": "newData.isNumber()" },
+        "status": { ".validate": "newData.isString()" }
+      }
+    },
+    "geohashes": {
+      "$geohash": {
+        ".read": true,
+        ".write": "auth != null",
+        "$riderId": {
+          "latitude": { ".validate": "newData.isNumber()" },
+          "longitude": { ".validate": "newData.isNumber()" },
+          "timestamp": { ".validate": "newData.isNumber()" }
+        }
+      }
+    }
+  }
+}
